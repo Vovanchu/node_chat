@@ -1,7 +1,5 @@
 import client from './src/db/db.js';
-import './src/model/User.model.js';
-import './src/model/Message.model.js';
-import './src/model/Room.model.js';
+import './src/model/model.js';
 
 await client.sync({ force: true });
 

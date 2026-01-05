@@ -15,8 +15,9 @@ const Room = client.define(
       allowNull: false,
     },
     members: {
-      type: DataTypes.STRING,
+      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
+      defaultValue: [],
     },
   },
   {

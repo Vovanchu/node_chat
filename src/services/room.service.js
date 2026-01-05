@@ -1,5 +1,4 @@
-import { Room } from '../models/Room.model.js';
-import { Message } from '../models/Message.model.js';
+import { Room, Message } from '../model/model.js';
 
 const getAllRooms = async () => {
   return Room.findAll();

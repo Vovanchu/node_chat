@@ -5,11 +5,11 @@ const getAll = () => {
 };
 
 const getById = (messageId) => {
-  Message.findByPk(messageId);
+  return Message.findByPk(messageId);
 };
 
 const createMessage = (roomId, authorId, text) => {
-  Message.create({
+  return Message.create({
     roomId,
     authorId,
     text,
@@ -22,10 +22,12 @@ const deleteMessage = (messageId) => {
       id: messageId,
     },
   });
+
+  return Message.findByPk(messageId);
 };
 
 const update = (messageId, text) => {
-  Message.update(
+  return Message.update(
     {
       text,
     },

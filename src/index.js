@@ -4,6 +4,7 @@ import cors from 'cors';
 import express from 'express';
 import path from 'path';
 import { WebSocketServer } from 'ws';
+import { fileURLToPath } from 'url';
 
 import usersRouter from './routes/user.route.js';
 import messagesRouter from './routes/message.route.js';
@@ -17,7 +18,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname, '../client')));
+const filename = fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
+
+app.use(express.static(path.join(dirname, '../client')));
 
 app.use('/users', usersRouter);
 app.use('/messages', messagesRouter);

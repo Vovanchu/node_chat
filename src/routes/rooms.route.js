@@ -3,9 +3,10 @@ import { roomController } from '../controllers/room.controller.js';
 
 const route = Router();
 
-route.post('/rooms', roomController.createRoom);
-route.get('/rooms', roomController.getAllRooms);
-route.delete('/rooms/:roomId', roomController.deleteRoom);
-route.put('/rooms/:roomId', roomController.updateRoom);
+route.post('/', roomController.createRoom);
+route.get('/', roomController.getAllRooms);
+route.delete('/:roomId', roomController.deleteRoom);
+route.put('/:roomId', roomController.updateRoom);
+route.post('/join', roomController.joinRooms);
 
 export default route;
