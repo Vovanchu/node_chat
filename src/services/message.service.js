@@ -17,13 +17,7 @@ const createMessage = (roomId, authorId, text) => {
 };
 
 const deleteMessage = (messageId) => {
-  Message.destroy({
-    where: {
-      id: messageId,
-    },
-  });
-
-  return Message.findByPk(messageId);
+  return Message.destroy({ where: { id: messageId } });
 };
 
 const update = (messageId, text) => {

@@ -77,7 +77,7 @@ const updateMessage = async (req, res) => {
 
     await messageService.update(+messageId, text);
 
-    res.sendStatus(201);
+    res.sendStatus(200);
   } catch (error) {
     res.status(500).json({ message: error.message || 'Internal server error' });
   }

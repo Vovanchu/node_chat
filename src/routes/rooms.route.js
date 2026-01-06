@@ -7,6 +7,6 @@ route.post('/', roomController.createRoom);
 route.get('/', roomController.getAllRooms);
 route.delete('/:roomId', roomController.deleteRoom);
 route.put('/:roomId', roomController.updateRoom);
-route.post('/join', roomController.joinRooms);
+route.post('/:roomId/join', roomController.joinRooms);
 
 export default route;

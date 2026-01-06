@@ -1,10 +1,14 @@
-import { roomService } from '../services/room.service';
-import { userService } from '../services/user.service';
+import { roomService } from '../services/room.service.js';
+import { userService } from '../services/users.service.js';
 
-const getAllRooms = (req, res) => {
-  const rooms = roomService.getAllRooms();
+const getAllRooms = async (req, res) => {
+  try {
+    const rooms = roomService.getAllRooms();
 
-  res.json(rooms);
+    res.status(200).json(rooms);
+  } catch (error) {
+    res.status(500).json({ message: 'Internal server error' });
+  }
 };
 
 const createRoom = async (req, res) => {
@@ -19,18 +23,28 @@ const createRoom = async (req, res) => {
 
     const room = await roomService.createRoom(name);
 
+    if (!room) {
+      res.status(500).json({ message: 'Internal server error' });
+
+      return;
+    }
+
     res.status(201).json(room);
   } catch (error) {
     res.status(500).json({ message: 'Internal server error' });
   }
 };
 
-const deleteRoom = (req, res) => {
-  const { roomId } = req.params;
+const deleteRoom = async (req, res) => {
+  try {
+    const { roomId } = req.params;
 
-  roomService.deleteRoom(roomId);
+    roomService.deleteRoom(+roomId);
 
-  res.sendStatus(201);
+    res.sendStatus(200);
+  } catch (error) {
+    res.status(500).json({ message: 'Internal server error' });
+  }
 };
 
 const updateRoom = async (req, res) => {
@@ -38,24 +52,20 @@ const updateRoom = async (req, res) => {
     const { roomId } = req.params;
     const { name } = req.body;
 
-    const room = roomService.getRoom(roomId);
+    const room = roomService.updateRoom(+roomId, name);
 
     if (!room) {
-      res.status(404).json({ message: 'Room not found' });
-
-      return;
+      return res.status(404).json({ message: 'Room not found' });
     }
 
-    await roomService.updateRoom(room, name);
-
-    res.sendStatus(201);
+    res.sendStatus(200).json(room);
   } catch (error) {
     res.status(500).json({ message: 'Internal server error' });
   }
 };
 
 const joinRooms = async (req, res) => {
-  const id = +req.params.id;
+  const id = req.body;
   const userId = +req.body.userId;
 
   if (!userId) {
